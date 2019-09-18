@@ -69,6 +69,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\MessageBoxManager.cs" />
     <Compile Include="Screens\ShellViewModel.cs" />
     <Compile Include="WellDataUiRegistry.cs" />
   </ItemGroup>
@@ -101,6 +102,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WellData.Core.Services\WellData.Core.Services.csproj">
+      <Project>{9DB72530-03A5-4409-9079-EEF0E71E6AC6}</Project>
+      <Name>WellData.Core.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Caliburn.Micro;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using WellData.Bootstrap.Assemblies;
+using WellData.Core.Data;
 using IContainer = Autofac.IContainer;
 
 namespace WellData
@@ -13,10 +15,17 @@ namespace WellData
         public IContainer Configure(ContainerBuilder builder)
         {
 
-          
-            //register all interfaces to concretes by name convention
+            var context = new DbContextOptionsBuilder<WellDbContext>();
+            context.UseInMemoryDatabase("WellList");
+
+            builder.RegisterType<WellDbContext>().WithParameter("options", context.Options);
+            
+
+            //register all interfaces to concretes by name convention except those excluded from scan
             foreach (var assembly in WellDataAssemblies.GetAllAssemblies())
-                builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces();
+                builder.RegisterAssemblyTypes(assembly)
+                    .Where(t => t.CustomAttributes.All(s => !s.AttributeType.Name.Contains("ExcludeFromScan")))
+                    .AsImplementedInterfaces();
 
             foreach (var assembly in WellDataUiAssemblies.GetUiAssemblies())
                 RegisterMvvm(builder, assembly);

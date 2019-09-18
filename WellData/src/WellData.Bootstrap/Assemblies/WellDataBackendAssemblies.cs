@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using WellData.Core.Data;
 using WellData.Core.Services;
 
 namespace WellData.Bootstrap.Assemblies
@@ -10,7 +11,8 @@ namespace WellData.Bootstrap.Assemblies
         {
             return new[]
             {
-                typeof( WellDataCoreServicesRegistry ).Assembly
+                typeof( WellDataCoreServicesRegistry ).Assembly,
+                typeof(WellDataCoreDataRegistry).Assembly
             };
         }
     }

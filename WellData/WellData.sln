@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellData.Tests", "src\WellD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellData.Bootstrap", "src\WellData.Bootstrap\WellData.Bootstrap.csproj", "{5193969A-F474-4571-ABF1-475D7773FF9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellData.Core.Data", "src\WellData.Core.Data\WellData.Core.Data.csproj", "{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellData.Core", "src\WellData.Core\WellData.Core.csproj", "{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{5193969A-F474-4571-ABF1-475D7773FF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5193969A-F474-4571-ABF1-475D7773FF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5193969A-F474-4571-ABF1-475D7773FF9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

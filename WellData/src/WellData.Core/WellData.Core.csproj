@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9DB72530-03A5-4409-9079-EEF0E71E6AC6}</ProjectGuid>
+    <ProjectGuid>{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WellData.Core.Services</RootNamespace>
-    <AssemblyName>WellData.Core.Services</AssemblyName>
+    <RootNamespace>WellData.Core</RootNamespace>
+    <AssemblyName>WellData.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,7 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,23 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\CsvFile.cs" />
-    <Compile Include="Common\CsvFileFactory.cs" />
-    <Compile Include="Data\TankColumnConstants.cs" />
-    <Compile Include="Data\WellDataImporter.cs" />
-    <Compile Include="Data\WellColumnConstants.cs" />
-    <Compile Include="WellDataCoreServicesRegistry.cs" />
+    <Compile Include="ExcludeFromScan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WellData.Core.Data\WellData.Core.Data.csproj">
-      <Project>{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}</Project>
-      <Name>WellData.Core.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WellData.Core\WellData.Core.csproj">
-      <Project>{d79177df-e3c4-4b53-9b6f-2a5b32195af7}</Project>
-      <Name>WellData.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

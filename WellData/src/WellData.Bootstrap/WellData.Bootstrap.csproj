@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WellData.Core.Data\WellData.Core.Data.csproj">
+      <Project>{d2c85bf9-ddaf-4e98-a9b4-3556a1703359}</Project>
+      <Name>WellData.Core.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WellData.Core.Services\WellData.Core.Services.csproj">
       <Project>{9DB72530-03A5-4409-9079-EEF0E71E6AC6}</Project>
       <Name>WellData.Core.Services</Name>
@@ -55,6 +59,9 @@
       <Project>{7D21BFDA-DAD7-4FDD-A636-0055CEE06010}</Project>
       <Name>WellData.Ui</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
