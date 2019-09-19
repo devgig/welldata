@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace WellData.Core.Data.Models
+﻿namespace WellData.Core.Services.Data
 {
     public static class WellColumnConstants
     {

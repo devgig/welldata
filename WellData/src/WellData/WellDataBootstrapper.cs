@@ -1,11 +1,13 @@
 ﻿using Autofac;
 using Caliburn.Micro;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using WellData.Bootstrap.Assemblies;
 using WellData.Core.Data;
+using WellData.Core.Services.ImportStrategies;
 using IContainer = Autofac.IContainer;
 
 namespace WellData
@@ -33,6 +35,27 @@ namespace WellData
 
             //  register the single window manager for this container
             builder.RegisterType<WindowManager>().As<IWindowManager>().SingleInstance();
+
+            //register strategy pattern
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(IWellDataImportStrategy)))
+                  .Where(t => typeof(IWellDataImportStrategy).IsAssignableFrom(t))
+                  .AsSelf();
+
+            builder.Register<Func<string, IWellDataImportStrategy>>(c =>
+            {
+
+                var types = c.ComponentRegistry.Registrations
+                 .Where(r => typeof(IWellDataImportStrategy).IsAssignableFrom(r.Activator.LimitType))
+                 .Select(r => r.Activator.LimitType);
+
+                IWellDataImportStrategy[] lst = types.Select(t => c.Resolve(t) as IWellDataImportStrategy).ToArray();
+
+                return (file) =>
+                {
+                    return lst.FirstOrDefault(x => x.CanProcess(file));
+                };
+            });
+
 
             //  register the single event aggregator for this container
             //builder.Register<IEventAggregator>(c => new EventAggregator()).InstancePerLifetimeScope();

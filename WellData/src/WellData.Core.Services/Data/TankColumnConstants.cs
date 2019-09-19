@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace WellData.Core.Services.Data
+﻿namespace WellData.Core.Services.Data
 {
     public static class TankColumnConstants
     {
