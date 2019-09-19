@@ -4,6 +4,6 @@
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
     <SolidColorBrush x:Key="MainBackground" options:Freeze="True" Color="#1451A0"></SolidColorBrush>
     <SolidColorBrush x:Key="NormalBorderBrush"  Color="#FF6593CF"></SolidColorBrush>
-    <SolidColorBrush x:Key="ControlBorderBrush"  Color="#1451A0"></SolidColorBrush>
+    <SolidColorBrush x:Key="ControlBorderBrush"  Color="#5EB952"></SolidColorBrush>
 
 </ResourceDictionary>

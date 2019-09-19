@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using MaterialDesignThemes.Wpf;
+using System.Windows;
 using System.Windows.Controls;
-using WellData.Ui.MaterialDesign;
 
 namespace WellData.Ui.Controls
 {

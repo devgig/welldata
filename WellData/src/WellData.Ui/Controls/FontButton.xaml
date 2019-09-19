@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="clr-namespace:WellData.Ui.MaterialDesign"
                     xmlns:buttons="clr-namespace:WellData.Ui.Controls"
-                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:materialDesign1="http://materialdesigninxaml.net/winfx/xaml/themes">
 
 
     <SolidColorBrush x:Key="FontButtonHighlight" options:Freeze="True" Color="#CEE3FD"></SolidColorBrush>
@@ -19,7 +20,7 @@
                     <Border x:Name="outerBorder" Margin="0" Padding="{TemplateBinding Padding}"
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Focusable="False">
                         <DockPanel  Margin="0">
-                            <materialDesign:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="image" Margin="2,0,0,0" Foreground="{TemplateBinding Foreground}" Kind="{TemplateBinding Icon}" Height="30" Width="30" ></materialDesign:PackIcon>
+                            <materialDesign1:PackIcon DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="image" Margin="2,0,0,0" Foreground="{TemplateBinding Foreground}" Kind="{TemplateBinding Icon}" Height="30" Width="30" ></materialDesign1:PackIcon>
                             <TextBlock x:Name="text" HorizontalAlignment="Left" Foreground="{TemplateBinding Foreground}" FontWeight="DemiBold" Margin="10,0,0,0" VerticalAlignment="Center" TextAlignment="Center" Text="{TemplateBinding Content}"></TextBlock>
                         </DockPanel>
                     </Border>

@@ -39,7 +39,7 @@
                 <RowDefinition Height="{Binding TankGridRegionHeight, Mode=TwoWay}"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
+            <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" 
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding WellItems}" SelectedItem="{Binding SelectedWell}" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Owner" Binding="{Binding Owner}"></DataGridTextColumn>
@@ -54,7 +54,7 @@
             <GridSplitter Grid.Row="1"  BorderThickness="1,0,1,0"
                         Style="{StaticResource HorizontalGridSplitterStyle}" />
 
-            <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
+            <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" 
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TankItems}" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Tank MID" Binding="{Binding Id}"></DataGridTextColumn>
