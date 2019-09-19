@@ -112,11 +112,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\WellDbContext.cs" />
+    <Compile Include="Context\WellDataDbContext.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Models\Tank.cs" />
-    <Compile Include="Models\Well.cs" />
+    <Compile Include="Entities\Tank.cs" />
+    <Compile Include="Entities\Well.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WellDataCoreDataRegistry.cs" />
   </ItemGroup>

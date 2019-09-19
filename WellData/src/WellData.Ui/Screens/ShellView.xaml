@@ -10,10 +10,32 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="250"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
             <Button cal:Message.Attach="ImportFileCommand" Content="Import"></Button>
         </StackPanel>
+        <DataGrid Grid.Row="1"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
+                  EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding WellItems}" SelectedItem="{Binding SelectedWell}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Owner" Binding="{Binding Owner}"></DataGridTextColumn>
+                <DataGridTextColumn Header="API" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Long" Binding="{Binding Longitude}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lat" Binding="{Binding Latitude}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Property #" Binding="{Binding Property}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Well Name" Binding="{Binding LeaseOrWellName}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
+                  EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TankItems}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tank MID" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tank Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tank Nbr" Binding="{Binding Number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tank Size" Binding="{Binding Size}"></DataGridTextColumn>
+                <DataGridTextColumn Header="BBLS per inch" Binding="{Binding BbblsPerInch}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

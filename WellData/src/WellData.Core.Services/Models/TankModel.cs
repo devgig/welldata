@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WellData.Core.Data.Models
+namespace WellData.Core.Services.Models
 {
-    public class Tank
+    public class TankModel 
     {
-        public int MID { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -25,5 +25,7 @@ namespace WellData.Core.Data.Models
         public string RNG { get; set; }
 
         public string County { get; set; }
+
+        public double WellId { get; set; }
     }
 }

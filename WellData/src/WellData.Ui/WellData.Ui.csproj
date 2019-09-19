@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\MessageBoxManager.cs" />
+    <Compile Include="Common\PropertyObserver.cs" />
     <Compile Include="Screens\ShellViewModel.cs" />
     <Compile Include="WellDataUiRegistry.cs" />
   </ItemGroup>
@@ -108,6 +109,11 @@
       <Project>{9DB72530-03A5-4409-9079-EEF0E71E6AC6}</Project>
       <Name>WellData.Core.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WellData.Core\WellData.Core.csproj">
+      <Project>{D79177DF-E3C4-4B53-9B6F-2A5B32195AF7}</Project>
+      <Name>WellData.Core</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

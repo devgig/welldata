@@ -15,10 +15,10 @@ namespace WellData
         public IContainer Configure(ContainerBuilder builder)
         {
 
-            var context = new DbContextOptionsBuilder<WellDbContext>();
+            var context = new DbContextOptionsBuilder<WellDataDbContext>();
             context.UseInMemoryDatabase("WellList");
 
-            builder.RegisterType<WellDbContext>().WithParameter("options", context.Options);
+            builder.RegisterType<WellDataDbContext>().WithParameter("options", context.Options);
             
 
             //register all interfaces to concretes by name convention except those excluded from scan

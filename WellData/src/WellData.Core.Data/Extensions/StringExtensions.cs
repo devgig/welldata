@@ -9,6 +9,11 @@ namespace WellData.Core.Data.Extensions
             return int.TryParse(value, out int n) ? n : 0;
         }
 
+        public static double ToDouble(this string value)
+        {
+            return double.TryParse(value, out double n) ? n : 0;
+        }
+
 
         public static decimal ToDecimal(this string value)
         {
