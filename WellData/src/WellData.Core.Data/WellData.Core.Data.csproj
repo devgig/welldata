@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="Context\WellDataDbContext.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Entities\Tank.cs" />
     <Compile Include="Entities\Well.cs" />

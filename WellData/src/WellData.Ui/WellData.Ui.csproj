@@ -71,6 +71,13 @@
   <ItemGroup>
     <Compile Include="Common\MessageBoxManager.cs" />
     <Compile Include="Common\PropertyObserver.cs" />
+    <Compile Include="Controls\FontButton.cs" />
+    <Compile Include="Converters\BooleanToVisibleConverter.cs" />
+    <Compile Include="MaterialDesign\PackIcon.cs" />
+    <Compile Include="MaterialDesign\PackIconBase.cs" />
+    <Compile Include="MaterialDesign\PackIconDataFactory.cs" />
+    <Compile Include="MaterialDesign\PackIconExtension.cs" />
+    <Compile Include="MaterialDesign\PackIconKind.cs" />
     <Compile Include="Screens\ShellViewModel.cs" />
     <Compile Include="WellDataUiRegistry.cs" />
   </ItemGroup>
@@ -100,12 +107,44 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Common\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FontButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Splitters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Converters\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaterialDesign\PackIconResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UiResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Screens\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WellData.Core.Data\WellData.Core.Data.csproj">
+      <Project>{D2C85BF9-DDAF-4E98-A9B4-3556A1703359}</Project>
+      <Name>WellData.Core.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WellData.Core.Services\WellData.Core.Services.csproj">
       <Project>{9DB72530-03A5-4409-9079-EEF0E71E6AC6}</Project>
       <Name>WellData.Core.Services</Name>
@@ -115,6 +154,11 @@
       <Name>WellData.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Screens\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Common\Images\whitelogo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

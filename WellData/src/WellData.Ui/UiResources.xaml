@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Common/Images.xaml"/>
+        <ResourceDictionary Source="Controls/Splitters.xaml"/>
+        <ResourceDictionary Source="Controls/Colors.xaml"/>
+        <ResourceDictionary Source="MaterialDesign/PackIconResource.xaml"/>
+        <ResourceDictionary Source="Controls/FontButton.xaml"/>
+        <ResourceDictionary Source="Converters/Converters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

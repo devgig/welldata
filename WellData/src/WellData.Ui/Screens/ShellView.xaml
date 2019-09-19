@@ -3,39 +3,67 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WellData.Ui.Screens"
         xmlns:cal="http://www.caliburnproject.org"
-        mc:Ignorable="d" Width="800" Height="600"
-        Title="ShellView" WindowState="Normal">
-    <Grid>
+        xmlns:Common="clr-namespace:WellData.Ui.Controls"
+        mc:Ignorable="d" Width="800" Height="600" Icon="logo.ico"
+        Title="Qv21 Technologies" WindowState="Normal">
+    <Grid Background="{StaticResource MainBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-            <Button cal:Message.Attach="ImportFileCommand" Content="Import"></Button>
-        </StackPanel>
-        <DataGrid Grid.Row="1"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Image Margin="8,0"  VerticalAlignment="Center" Height="25" Width="25" Source="{StaticResource Qv21WhiteLog}"  ></Image>
+                <TextBlock  Margin="0,5,0,0" HorizontalAlignment="Center" TextAlignment="Center" 
+                                    TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Foreground="White"
+                                    FontFamily="Calibri" FontSize="20" FontWeight="DemiBold"
+                                    Text="Qv21 Well Data Viewer" />
+
+            </StackPanel>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" >
+                <Common:FontButton  cal:Message.Attach="ImportFileCommand"
+                                                          Icon="FileImport"
+                                                          ToolTip="Import File"
+                                                          />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding WellGridRegionHeight, Mode=TwoWay}"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="{Binding TankGridRegionHeight, Mode=TwoWay}"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding WellItems}" SelectedItem="{Binding SelectedWell}" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Owner" Binding="{Binding Owner}"></DataGridTextColumn>
-                <DataGridTextColumn Header="API" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Long" Binding="{Binding Longitude}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Lat" Binding="{Binding Latitude}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Property #" Binding="{Binding Property}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Well Name" Binding="{Binding LeaseOrWellName}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Owner" Binding="{Binding Owner}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="API" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Long" Binding="{Binding Longitude}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Lat" Binding="{Binding Latitude}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Property #" Binding="{Binding Property}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Well Name" Binding="{Binding LeaseOrWellName}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <GridSplitter Grid.Row="1"  BorderThickness="1,0,1,0"
+                        Style="{StaticResource HorizontalGridSplitterStyle}" />
+
+            <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" IsReadOnly="True" 
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TankItems}" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Tank MID" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tank Name" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tank Nbr" Binding="{Binding Number}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tank Size" Binding="{Binding Size}"></DataGridTextColumn>
-                <DataGridTextColumn Header="BBLS per inch" Binding="{Binding BbblsPerInch}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tank MID" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tank Name" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tank Nbr" Binding="{Binding Number}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tank Size" Binding="{Binding Size}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="BBLS per inch" Binding="{Binding BbblsPerInch}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>

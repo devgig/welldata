@@ -5,9 +5,10 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <local:AutoFacBootStrapper x:Key="Bootstrapper"/>
-                </ResourceDictionary>
+                    <ResourceDictionary  Source="pack://application:,,,/WellData.Ui;component/UiResources.xaml" />
+                    <ResourceDictionary>
+                        <local:AutoFacBootStrapper x:Key="Bootstrapper"/>
+                    </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
