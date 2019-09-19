@@ -65,7 +65,7 @@ namespace WellData.Ui.Screens
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                Filter = @"CSV (Comma delimited) files(*.csv)|*.csv|Excel files(*.xlsx)|*.xlsx",
+                Filter = @"Excel files(*.xlsx)|*.xlsx|CSV (Comma delimited) files(*.csv)|*.csv",
                 CheckFileExists = true,
                 CheckPathExists = true,
                 Multiselect = false

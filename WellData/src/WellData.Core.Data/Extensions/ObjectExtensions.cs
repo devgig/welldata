@@ -1,12 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 
 namespace WellData.Core.Data.Extensions
 {
     public static class ObjectExtensions
     {
+
+        public static int ToNumber(this object value)
+        {
+            return int.TryParse(value?.ToString(), out int n) ? n : 0;
+        }
+
+        public static double ToDouble(this object value)
+        {
+            return double.TryParse(value?.ToString(), out double n) ? n : 0;
+        }
+        
+        public static decimal ToDecimal(this object value)
+        {
+            return decimal.TryParse(value?.ToString(), NumberStyles.AllowCurrencySymbol | NumberStyles.Number, CultureInfo.CurrentCulture.NumberFormat, out decimal n) ? n : 0.00M;
+        }
+
         public static void IfNotNullThen<T>(this T o, Action<T> action) where T : class
         {
             if (o.IsNotNull())

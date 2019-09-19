@@ -1,9 +1,10 @@
-﻿using SimpleExcelImport;
-using System;
+﻿using ExcelDataReader;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using WellData.Core.Data.Entities;
+using WellData.Core.Data.Extensions;
 using WellData.Core.Services.Data;
 
 namespace WellData.Core.Services.ImportStrategies
@@ -18,43 +19,69 @@ namespace WellData.Core.Services.ImportStrategies
 
         public IEnumerable<Well> Import(string file)
         {
-            try
+
+            var wells = new Dictionary<double, Well>();
+            var list = new List<WellData>();
+            DataSet ds;
+
+            using (var stream = File.Open(file, FileMode.Open, FileAccess.Read))
             {
-                var data = File.ReadAllBytes(file);
-                var import = new ImportFromExcel();
-                import.LoadXlsx(data);
-                //first parameter it's the sheet number in the excel workbook
-                //second parameter it's the number of rows to skip at the start(we have an header in the file)
-                List<WellData> output = import.ExcelToList<WellData>(0, 1);
-
-                var wells = new Dictionary<double, Well>();
-
-                foreach (var line in output)
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    //assumed to be the key for a well
-                    if (wells.ContainsKey(line.API))
+                    ds = reader.AsDataSet(new ExcelDataSetConfiguration()
                     {
-                        wells[line.API].Tanks.Add(PopulateTank(line));
-                    }
-                    else
-                    {
-                        var well = PopulateWell(line);
-                        well.Tanks.Add(PopulateTank(line));
-                        wells.Add(line.API, well);
-                    }
+                        ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
+                        {
+                            UseHeaderRow = true
+                        }
+                    });
                 }
-                var items = wells.Select(x => x.Value).ToArray();
-                if (!items.Any())
-                    return Enumerable.Empty<Well>();
-
-                return items;
-
             }
-            catch(Exception ex)
+
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                return Enumerable.Empty<Well>();
+                var data = new WellData
+                {
+                    API = row[WellColumnConstants.API].ToDouble(),
+                    Latitude = row[WellColumnConstants.Latitude].ToDecimal(),
+                    Longitude = row[WellColumnConstants.Longitude].ToDecimal(),
+                    Owner = row[WellColumnConstants.Owner]?.ToString(),
+                    Property = row[WellColumnConstants.Property].ToNumber(),
+                    LeaseOrWellName = row[WellColumnConstants.Name]?.ToString(),
+                    TankMID = row[TankColumnConstants.MID].ToNumber(),
+                    TankName = row[TankColumnConstants.Name]?.ToString(),
+                    TankSize = row[TankColumnConstants.Size].ToDecimal(),
+                    TWP = row[TankColumnConstants.TWP]?.ToString(),
+                    SEC = row[TankColumnConstants.SEC].ToNumber(),
+                    RNG = row[TankColumnConstants.RNG]?.ToString(),
+                    TankNumber = row[TankColumnConstants.Number].ToNumber(),
+                    County = row[TankColumnConstants.County]?.ToString(),
+                    BbblsPerInch = row[TankColumnConstants.BbblsPerInch].ToDecimal()
+                };
+
+                list.Add(data);
             }
-           
+
+            foreach (var line in list)
+            {
+                //assumed to be the key for a well
+                if (wells.ContainsKey(line.API))
+                {
+                    wells[line.API].Tanks.Add(PopulateTank(line));
+                }
+                else
+                {
+                    var well = PopulateWell(line);
+                    well.Tanks.Add(PopulateTank(line));
+                    wells.Add(line.API, well);
+                }
+            }
+            var items = wells.Select(x => x.Value).ToArray();
+            if (!items.Any())
+                return Enumerable.Empty<Well>();
+
+            return items;
+
         }
 
         private Tank PopulateTank(WellData line)
@@ -94,52 +121,36 @@ namespace WellData.Core.Services.ImportStrategies
 
     public class WellData
     {
-        [ExcelImport(WellColumnConstants.Owner, order = 1)]
         public string Owner { get; set; }
 
 
-        [ExcelImport(WellColumnConstants.API, order = 2)]
-        public double API {get; set; }
+        public double API { get; set; }
 
-        [ExcelImport(WellColumnConstants.Longitude, order = 3)]
         public decimal Longitude { get; set; }
 
-        [ExcelImport(WellColumnConstants.Latitude, order = 4)]
         public decimal Latitude { get; set; }
 
-        [ExcelImport(WellColumnConstants.Property, order = 5)]
         public int Property { get; set; }
 
-        [ExcelImport(WellColumnConstants.Name, order = 6)]
         public string LeaseOrWellName { get; set; }
 
-        [ExcelImport(TankColumnConstants.MID, order = 7)]
         public int TankMID { get; set; }
 
-        [ExcelImport(TankColumnConstants.Name, order = 8)]
         public string TankName { get; set; }
 
-        [ExcelImport(TankColumnConstants.Number, order = 9)]
         public int TankNumber { get; set; }
 
-        [ExcelImport(TankColumnConstants.Size, order = 10)]
         public decimal TankSize { get; set; }
 
-        [ExcelImport(TankColumnConstants.BbblsPerInch, order = 11)]
         public decimal BbblsPerInch { get; set; }
 
-        [ExcelImport(TankColumnConstants.SEC, order = 12)]
         public int SEC { get; set; }
 
-        [ExcelImport(TankColumnConstants.TWP, order = 13)]
         public string TWP { get; set; }
 
-        [ExcelImport(TankColumnConstants.RNG, order = 14)]
         public string RNG { get; set; }
 
-        [ExcelImport(TankColumnConstants.County, order = 15)]
         public string County { get; set; }
-
 
     }
 
