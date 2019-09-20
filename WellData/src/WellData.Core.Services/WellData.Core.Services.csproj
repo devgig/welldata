@@ -73,6 +73,7 @@
     <Compile Include="ImportStrategies\CsvWellDataImporter.cs" />
     <Compile Include="ImportStrategies\IWellDataImportStrategy.cs" />
     <Compile Include="ImportStrategies\XlsxWellDataImporter.cs" />
+    <Compile Include="Models\SimpleModel.cs" />
     <Compile Include="Models\TankModel.cs" />
     <Compile Include="Models\TankProvider.cs" />
     <Compile Include="Models\WellModel.cs" />

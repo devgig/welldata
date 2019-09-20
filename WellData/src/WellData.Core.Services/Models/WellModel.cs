@@ -1,19 +1,63 @@
 ﻿namespace WellData.Core.Services.Models
 {
-    public class WellModel
+    public class WellModel : SimpleModel
     {
-        public string Owner { get; set; }
+        private string owner;
+        private decimal longitude;
+        private decimal latitude;
+        private int property;
+        private string leaseOrWellName;
+
+        public WellModel() : base(typeof(WellModel))
+        {
+        }
+
+        public string Owner
+        {
+            get => owner; set
+            {
+                owner = value;
+                OnPropertyChanged();
+            }
+        }
 
         public double Id { get; set; }
 
-        public decimal Longitude { get; set; }
+        public decimal Longitude
+        {
+            get => longitude; set
+            {
+                longitude = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public decimal Latitude { get; set; }
+        public decimal Latitude
+        {
+            get => latitude; set
+            {
+                latitude = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public int Property { get; set; }
+        public int Property
+        {
+            get => property; set
+            {
+                property = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string LeaseOrWellName { get; set; }
-
+        public string LeaseOrWellName
+        {
+            get => leaseOrWellName; set
+            {
+                leaseOrWellName = value;
+                OnPropertyChanged();
+            }
+        }
 
     }
 }

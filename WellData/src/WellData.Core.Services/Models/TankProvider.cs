@@ -11,6 +11,7 @@ namespace WellData.Core.Services.Models
     public interface ITankProvider
     {
         Task<IEnumerable<TankModel>> GetByWellId(double wellId);
+        Task<int> Save(IEnumerable<TankModel> tanks);
     }
     public class TankProvider : ITankProvider
     {
@@ -20,6 +21,7 @@ namespace WellData.Core.Services.Models
         {
             _wellDbContext = wellDbContext;
         }
+
         public async Task<IEnumerable<TankModel>> GetByWellId(double wellId)
         {
             //mocking async calls
@@ -31,9 +33,39 @@ namespace WellData.Core.Services.Models
             return await Task.FromResult(tanks.Select(x => ToModel(x)).ToArray());
         }
 
+        public async Task<int> Save(IEnumerable<TankModel> tanks)
+        {
+            var ids = tanks.Select(x => x.Id);
+            var entities = _wellDbContext.Tanks.Where(x => ids.Contains(x.Id)).ToArray();
+
+            var entityDict = entities.ToDictionary(x => x.Id);
+            foreach(var tank in tanks)
+            {
+                if(entityDict.ContainsKey(tank.Id))
+                CopyToEntity(entityDict[tank.Id], tank);
+            }
+
+            _wellDbContext.Tanks.UpdateRange(entityDict.Select(x => x.Value).ToArray());
+
+            return await _wellDbContext.SaveChangesAsync();
+        }
+
+        private void CopyToEntity(Tank entity, TankModel tank)
+        {
+            entity.BbblsPerInch = tank.BbblsPerInch;
+            entity.County = tank.County;
+            entity.Name = tank.Name;
+            entity.Number = tank.Number;
+            entity.RNG = tank.RNG;
+            entity.SEC = tank.SEC;
+            entity.Size = tank.Size;
+            entity.TWP = tank.TWP;
+            
+        }
+
         private TankModel ToModel(Tank tank)
         {
-            return new TankModel
+            var model = new TankModel
             {
                 Id = tank.Id,
                 BbblsPerInch = tank.BbblsPerInch,
@@ -46,6 +78,8 @@ namespace WellData.Core.Services.Models
                 TWP = tank.TWP,
                 WellId = tank.WellId
             };
+            model.Clean();
+            return model;
 
         }
     }

@@ -36,9 +36,14 @@ namespace WellData.Ui.Screens
         private async Task LoadTanks(WellModel well)
         {
             if (well == null) return;
-            Execute.OnUIThread(() => TankItems.Clear());
+            
             using (SetIsBusyWhileExecuting())
             {
+                var dirty = TankItems.Where(x => x.IsDirty()).ToArray();
+                if(dirty.Any())
+                    await Task.Run(() => _tankProvider.Save(dirty));
+                
+                TankItems.Clear();
                 var results = await Task.Run(() => _tankProvider.GetByWellId(well.Id));
                 await Execute.OnUIThreadAsync(() => TankItems.AddRange(results));
             }
@@ -46,7 +51,7 @@ namespace WellData.Ui.Screens
 
         private async Task LoadWells()
         {
-            Execute.OnUIThread(() => WellItems.Clear());
+            WellItems.Clear();
             using (SetIsBusyWhileExecuting())
             {
                 var wells = await Task.Run(() => _wellProvider.GetAll());

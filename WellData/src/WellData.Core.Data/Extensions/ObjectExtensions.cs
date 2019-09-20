@@ -8,6 +8,21 @@ namespace WellData.Core.Data.Extensions
 {
     public static class ObjectExtensions
     {
+        public static bool ImplementsInterfaceTemplate(this Type type, Type openGeneric)
+        {
+            return
+                type.GetInterfaces().Any(
+                    x => x.IsGenericType
+                    && x.GetGenericTypeDefinition() == openGeneric);
+        }
+
+        public static object GetDefaultValue(this Type t)
+        {
+            if (t.IsValueType)
+                return Activator.CreateInstance(t);
+
+            return null;
+        }
 
         public static int ToNumber(this object value)
         {

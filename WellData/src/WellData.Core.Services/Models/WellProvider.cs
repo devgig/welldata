@@ -26,7 +26,7 @@ namespace WellData.Core.Services.Models
 
         private WellModel ToModel(Well well)
         {
-            return new WellModel
+            var model = new WellModel
             {
                 Id = well.Id,
                 Latitude = well.Latitude,
@@ -35,6 +35,8 @@ namespace WellData.Core.Services.Models
                 Owner = well.Owner,
                 Property = well.Property,
             };
+            model.Clean();
+            return model;
         }
     }
 }
