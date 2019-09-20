@@ -11,6 +11,7 @@
     <Grid Background="{StaticResource MainBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
 
@@ -21,7 +22,7 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="0,3,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
                 <Image Margin="8,0"  VerticalAlignment="Center" Height="25" Width="25" Source="{StaticResource Qv21WhiteLog}"  ></Image>
                 <TextBlock  Margin="0,5,0,0" HorizontalAlignment="Center" TextAlignment="Center" 
                                     TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Foreground="White"
@@ -29,17 +30,21 @@
                                     Text="Qv21 Well Data Viewer" />
 
             </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" >
-                <Common:FontButton  cal:Message.Attach="ImportFileCommand"
+        </Grid>
+        <!-- Row 1-->
+        <Grid Grid.Row="1" Background="Black" VerticalAlignment="Top">
+            <StackPanel  HorizontalAlignment="Left" Orientation="Horizontal" >
+                <Common:FontButton cal:Message.Attach="ImportFileCommand" 
                                                           Icon="FileImport"
                                                           ToolTip="Import File"
+                                                          Content="Import File"
                                                           />
             </StackPanel>
         </Grid>
-        <!-- Row 1-->
-        <ProgressBar Grid.Row="1" IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource booleanToVisibleConverter}, ConverterParameter=COLLAPSED}" />
         <!--Row 2 -->
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ProgressBar Grid.Row="2" IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource booleanToVisibleConverter}, ConverterParameter=COLLAPSED}" />
+        <!-- Row 3-->
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
