@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:Common="clr-namespace:WellData.Ui.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" Width="800" Height="600" Icon="logo.ico"
         Title="Qv21 Technologies" WindowState="Normal">
     <Grid Background="{StaticResource MainBackground}">
@@ -42,14 +43,34 @@
             </Grid.RowDefinitions>
 
             <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" 
+                      
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding WellItems}" SelectedItem="{Binding SelectedWell}" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Owner" Binding="{Binding Owner}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="API" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Long" Binding="{Binding Longitude}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Lat" Binding="{Binding Latitude}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Property #" Binding="{Binding Property}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Well Name" Binding="{Binding LeaseOrWellName}"></DataGridTextColumn>
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Owner}"
+                                                               Header="Owner"
+                                                               MaxLength="100"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
+                                                               Header="API"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Longitude}"
+                                                               Header="Long"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Latitude}"
+                                                               Header="Lat"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Property}"
+                                                               Header="Property"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding LeaseOrWellName}"
+                                                               Header="Well Name"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -59,11 +80,27 @@
             <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" 
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TankItems}" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Tank MID" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tank Name" Binding="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tank Nbr" Binding="{Binding Number}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tank Size" Binding="{Binding Size}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="BBLS per inch" Binding="{Binding BbblsPerInch}"></DataGridTextColumn>
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
+                                                               Header="Tank MID"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
+                                                               Header="Tank Name"
+                                                               MaxLength="100"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Number}"
+                                                               Header="Tank Nbr"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Size}"
+                                                               Header="Tank Size"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
+                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding BbblsPerInch}"
+                                                               Header="BBLS per inch"
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                                                               />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

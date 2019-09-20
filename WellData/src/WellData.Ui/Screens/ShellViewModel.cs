@@ -82,6 +82,7 @@ namespace WellData.Ui.Screens
             var uploadFile = openFileDialog.ShowDialog().GetValueOrDefault() ? openFileDialog.FileName : string.Empty;
             using (SetIsBusyWhileExecuting())
             {
+                //not doing anything with the return for now.  Might add something later
                 var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
                 await LoadWells();
             }
