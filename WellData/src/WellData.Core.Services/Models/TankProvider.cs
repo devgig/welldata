@@ -10,7 +10,7 @@ namespace WellData.Core.Services.Models
 {
     public interface ITankProvider
     {
-        IEnumerable<TankModel> GetByWellId(double wellId);
+        Task<IEnumerable<TankModel>> GetByWellId(double wellId);
     }
     public class TankProvider : ITankProvider
     {
@@ -20,14 +20,15 @@ namespace WellData.Core.Services.Models
         {
             _wellDbContext = wellDbContext;
         }
-        public IEnumerable<TankModel> GetByWellId(double wellId)
+        public async Task<IEnumerable<TankModel>> GetByWellId(double wellId)
         {
+            //mocking async calls
             var tanks = _wellDbContext.Tanks.Where(x => x.WellId == wellId).ToArray();
 
             if (tanks == null || !tanks.Any())
-                return Enumerable.Empty<TankModel>();
+                return await Task.FromResult(Enumerable.Empty<TankModel>());
 
-            return tanks.Select(x => ToModel(x)).ToArray();
+            return await Task.FromResult(tanks.Select(x => ToModel(x)).ToArray());
         }
 
         private TankModel ToModel(Tank tank)
@@ -45,7 +46,7 @@ namespace WellData.Core.Services.Models
                 TWP = tank.TWP,
                 WellId = tank.WellId
             };
-            
+
         }
     }
 }

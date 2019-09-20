@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WellData.Core.Data;
 using WellData.Core.Data.Entities;
 
@@ -7,7 +8,7 @@ namespace WellData.Core.Services.Models
 {
     public interface IWellProvider
     {
-        IEnumerable<WellModel> GetAll();
+        Task<IEnumerable<WellModel>> GetAll();
     }
     public class WellProvider : IWellProvider
     {
@@ -17,9 +18,10 @@ namespace WellData.Core.Services.Models
         {
             _wellDbContext = wellDbContext;
         }
-        public IEnumerable<WellModel> GetAll()
+        public async Task<IEnumerable<WellModel>> GetAll()
         {
-            return _wellDbContext.Wells.Select(x => ToModel(x)).ToArray();
+            //mocking async call
+            return await Task.FromResult(_wellDbContext.Wells.Select(x => ToModel(x)).ToArray());
         }
 
         private WellModel ToModel(Well well)

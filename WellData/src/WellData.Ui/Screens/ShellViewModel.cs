@@ -7,14 +7,13 @@ using WellData.Ui.Common;
 
 namespace WellData.Ui.Screens
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : ViewModel
     {
         private readonly IMessageBoxManager _messageBoxManager;
         private readonly IWellDataImporter _wellDataImporter;
         private readonly IWellProvider _wellProvider;
         private readonly ITankProvider _tankProvider;
         private readonly PropertyObserver<ShellViewModel> _propertyObserver;
-        private WellModel selectedWell;
 
         public ShellViewModel(
             IMessageBoxManager messageBoxManager,
@@ -30,26 +29,35 @@ namespace WellData.Ui.Screens
             TankItems = new BindableCollection<TankModel>();
             _propertyObserver = new PropertyObserver<ShellViewModel>(this);
 
-            _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell));
+            _ = _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell).ConfigureAwait(false));
 
         }
 
-        private void LoadTanks(WellModel well)
+        private async Task LoadTanks(WellModel well)
         {
             if (well == null) return;
-            TankItems.Clear();
-            TankItems.AddRange(_tankProvider.GetByWellId(well.Id));
+            Execute.OnUIThread(() => TankItems.Clear());
+            using (SetIsBusyWhileExecuting())
+            {
+                var results = await Task.Run(() => _tankProvider.GetByWellId(well.Id));
+                await Execute.OnUIThreadAsync(() => TankItems.AddRange(results));
+            }
         }
 
-        private void LoadWells()
+        private async Task LoadWells()
         {
-            WellItems.Clear();
-            var wells = _wellProvider.GetAll().ToArray();
-            WellItems.AddRange(wells);
+            Execute.OnUIThread(() => WellItems.Clear());
+            using (SetIsBusyWhileExecuting())
+            {
+                var wells = await Task.Run(() => _wellProvider.GetAll());
+                await Execute.OnUIThreadAsync(() => WellItems.AddRange(wells.ToArray()));
+            }
         }
 
         public BindableCollection<WellModel> WellItems { get; set; }
         public BindableCollection<TankModel> TankItems { get; set; }
+
+        private WellModel selectedWell;
 
         public WellModel SelectedWell
         {
@@ -72,16 +80,10 @@ namespace WellData.Ui.Screens
             };
 
             var uploadFile = openFileDialog.ShowDialog().GetValueOrDefault() ? openFileDialog.FileName : string.Empty;
-            if (string.IsNullOrEmpty(uploadFile))
+            using (SetIsBusyWhileExecuting())
             {
-                _messageBoxManager.ShowInformation("No file selected.");
-            }
-            else
-            {
-                var results = await _wellDataImporter.Upload(uploadFile);
-
-                //_messageBoxManager.ShowInformation($"{results} records uploaded.");
-                Execute.OnUIThread(() => LoadWells());
+                var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
+                await LoadWells();
             }
 
         }

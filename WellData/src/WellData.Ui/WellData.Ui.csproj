@@ -75,8 +75,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DisposableActionInvoker.cs" />
     <Compile Include="Common\MessageBoxManager.cs" />
     <Compile Include="Common\PropertyObserver.cs" />
+    <Compile Include="Common\ViewModel.cs" />
     <Compile Include="Controls\FontButton.cs" />
     <Compile Include="Converters\BooleanToVisibleConverter.cs" />
     <Compile Include="Screens\ShellViewModel.cs" />
