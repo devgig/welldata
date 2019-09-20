@@ -10,23 +10,22 @@ namespace WellData.Core.Services.Tests
 {
     [UseAutofacTestFramework]
     [TestCaseOrderer("WellData.Core.Services.Tests.Database", "WellData.Core.Services.Tests")]
-    public class UploadTests 
+    public class UploadTests  : IClassFixture<DbContextFixture>
     {
         private readonly IWellDataImporter _wellDataImporter;
-        private readonly WellDataDbContext _dbContext;
+        private readonly DbContextFixture _dbContextFixture;
 
         public UploadTests() { }
-        public UploadTests(IWellDataImporter wellDataImporter, WellDataDbContext dbContext)
+        public UploadTests(IWellDataImporter wellDataImporter, DbContextFixture dbContextFixture)
         {
             _wellDataImporter = wellDataImporter;
-            _dbContext = dbContext;
+            _dbContextFixture = dbContextFixture;
         }
 
 
         [Fact]
         public async Task should_upload_csv_file()
         {
-            _dbContext.CreateEmptyViaDelete();
             var filename = "./Resources/WellDataTest.csv";
             var result = await _wellDataImporter.Upload(filename);
             Assert.Equal(3, result);
@@ -35,7 +34,6 @@ namespace WellData.Core.Services.Tests
         [Fact]
         public async Task should_upload_xlsx_file()
         {
-            _dbContext.CreateEmptyViaDelete();
             var filename = "./Resources/WellDataTest.xlsx";
             var result = await _wellDataImporter.Upload(filename);
             Assert.Equal(6, result);

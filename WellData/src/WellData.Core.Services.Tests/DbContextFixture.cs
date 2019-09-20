@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestSupport.EfHelpers;
 using WellData.Core.Data;
 
 namespace WellData.Core.Services.Tests
 {
     public class DbContextFixture : IDisposable
     {
+        private readonly WellDataDbContext _dbContext;
+
         public DbContextFixture(WellDataDbContext dbContext)
         {
-            DbContext = dbContext;   
+            _dbContext = dbContext;
         }
 
         public void Dispose()
         {
-            // ... clean up test data from the database ...
+            _dbContext.CreateEmptyViaDelete();
         }
 
-        public WellDataDbContext DbContext { get; private set; }
     }
 }

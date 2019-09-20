@@ -5,27 +5,27 @@ using System.Linq;
 using WellData.Core.Services.Models;
 using WellData.Core.Data;
 using TestSupport.EfHelpers;
+using WellData.Core.Services.Tests;
 
 namespace WellData.Tests
 {
     [UseAutofacTestFramework]
     [TestCaseOrderer("WellData.Core.Services.Tests.Database", "WellData.Core.Services.Tests")]
-    public class ServiceTests
+    public class ServiceTests : IClassFixture<DbContextFixture>
     {
         private readonly IWellProvider _wellProvider;
-        private readonly WellDataDbContext _dbContext;
+        private readonly DbContextFixture _dbContextFixture;
 
         public ServiceTests() { }
-        public ServiceTests(IWellProvider wellProvider, WellDataDbContext dbContext)
+        public ServiceTests(IWellProvider wellProvider, DbContextFixture dbContextFixture)
         {
             _wellProvider = wellProvider;
-            _dbContext = dbContext;
+            _dbContextFixture = dbContextFixture;
         }
 
         [Fact]
         public async Task should_return_0_wells()
         {
-            _dbContext.CreateEmptyViaDelete();
             var wells = await _wellProvider.GetAll();
             Assert.Empty(wells);
 
