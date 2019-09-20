@@ -5,9 +5,9 @@ using Xunit.Abstractions;
 using Xunit.Ioc.Autofac;
 using Xunit.Sdk;
 
-[assembly: TestFramework("WellData.Tests.ConfigureTestFramework", "WellData.Tests")]
+[assembly: TestFramework("WellData.Core.Services.Tests.ConfigureTestFramework", "WellData.Core.Services.Tests")]
 
-namespace WellData.Tests
+namespace WellData.Core.Services.Tests
 {
     public class ConfigureTestFramework : AutofacTestFramework
     {
