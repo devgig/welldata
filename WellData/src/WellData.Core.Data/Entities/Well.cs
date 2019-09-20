@@ -7,7 +7,7 @@ namespace WellData.Core.Data.Entities
     {
         public string Owner { get; set; }
 
-        public double Id { get; set; }
+        public string Id { get; set; }
 
         public decimal Longitude { get; set; }
 

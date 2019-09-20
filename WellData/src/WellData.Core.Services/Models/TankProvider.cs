@@ -10,7 +10,7 @@ namespace WellData.Core.Services.Models
 {
     public interface ITankProvider
     {
-        Task<IEnumerable<TankModel>> GetByWellId(double wellId);
+        Task<IEnumerable<TankModel>> GetByWellId(string wellId);
         Task<int> Save(IEnumerable<TankModel> tanks);
     }
     public class TankProvider : ITankProvider
@@ -22,7 +22,7 @@ namespace WellData.Core.Services.Models
             _wellDbContext = wellDbContext;
         }
 
-        public async Task<IEnumerable<TankModel>> GetByWellId(double wellId)
+        public async Task<IEnumerable<TankModel>> GetByWellId(string wellId)
         {
             //mocking async calls
             var tanks = _wellDbContext.Tanks.Where(x => x.WellId == wellId).ToArray();

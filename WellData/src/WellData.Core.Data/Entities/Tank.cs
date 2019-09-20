@@ -27,7 +27,7 @@ namespace WellData.Core.Data.Entities
 
         public string County { get; set; }
                 
-        public double WellId { get; set; }
+        public string WellId { get; set; }
 
         [ForeignKey("WellId")]
         public virtual Well Well { get; set; }

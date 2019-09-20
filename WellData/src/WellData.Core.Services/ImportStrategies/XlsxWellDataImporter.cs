@@ -20,7 +20,7 @@ namespace WellData.Core.Services.ImportStrategies
         public IEnumerable<Well> Import(string file)
         {
 
-            var wells = new Dictionary<double, Well>();
+            var wells = new Dictionary<string, Well>();
             var list = new List<WellData>();
             DataSet ds;
 
@@ -42,7 +42,7 @@ namespace WellData.Core.Services.ImportStrategies
             {
                 var data = new WellData
                 {
-                    API = row[WellColumnConstants.API].ToDouble(),
+                    API = row[WellColumnConstants.API]?.ToString(),
                     Latitude = row[WellColumnConstants.Latitude].ToDecimal(),
                     Longitude = row[WellColumnConstants.Longitude].ToDecimal(),
                     Owner = row[WellColumnConstants.Owner]?.ToString(),
@@ -124,7 +124,7 @@ namespace WellData.Core.Services.ImportStrategies
         public string Owner { get; set; }
 
 
-        public double API { get; set; }
+        public string API { get; set; }
 
         public decimal Longitude { get; set; }
 

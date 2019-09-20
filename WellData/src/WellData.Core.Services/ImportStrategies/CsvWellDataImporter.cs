@@ -66,7 +66,7 @@ namespace WellData.Core.Services.ImportStrategies
                 Number = line[TankColumnConstants.Number].ToNumber(),
                 RNG = line[TankColumnConstants.RNG],
                 SEC = line[TankColumnConstants.SEC].ToNumber(),
-                Size = line[TankColumnConstants.Size].ToNumber(),
+                Size = line[TankColumnConstants.Size].ToDecimal(),
                 TWP = line[TankColumnConstants.TWP]
             };
 
@@ -76,7 +76,7 @@ namespace WellData.Core.Services.ImportStrategies
             return new Well
             {
                 //assuming the API # is the Well Id
-                Id = line[WellColumnConstants.API].ToDouble(),
+                Id = line[WellColumnConstants.API],
                 Latitude = line[WellColumnConstants.Latitude].ToDecimal(),
                 Longitude = line[WellColumnConstants.Longitude].ToDecimal(),
                 Owner = line[WellColumnConstants.Owner],

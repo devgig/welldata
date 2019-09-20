@@ -85,6 +85,6 @@
             }
         }
 
-        public double WellId { get; set; }
+        public string WellId { get; set; }
     }
 }

@@ -197,6 +197,7 @@
   <ItemGroup>
     <Compile Include="ConfigureTestFramework.cs" />
     <Compile Include="DbContextFixture.cs" />
+    <Compile Include="ModelConstants.cs" />
     <Compile Include="ServiceTests.cs" />
     <Compile Include="TestBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
