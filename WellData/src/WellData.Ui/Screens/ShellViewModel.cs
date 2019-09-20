@@ -51,7 +51,7 @@ namespace WellData.Ui.Screens
                     await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{tanks} record(s) updated."));
                 }
 
-                TankItems.Clear();
+                Execute.OnUIThread(() => TankItems.Clear());
                 var results = await Task.Run(() => _tankProvider.GetByWellId(well.Id));
                 await Execute.OnUIThreadAsync(() => TankItems.AddRange(results));
             }
@@ -59,7 +59,7 @@ namespace WellData.Ui.Screens
 
         private async Task LoadWells()
         {
-            WellItems.Clear();
+            Execute.OnUIThread(() => WellItems.Clear());
             using (SetIsBusyWhileExecuting())
             {
                 //dirty data checking is not needed for this exercise but would be need if data was going to be saved.

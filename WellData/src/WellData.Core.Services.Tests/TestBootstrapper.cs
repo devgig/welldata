@@ -15,6 +15,7 @@ namespace WellData.Core.Services.Tests
         {
             var context = new DbContextOptionsBuilder<WellDataDbContext>();
             context.UseInMemoryDatabase("WellList");
+            
 
             builder.RegisterType<WellDataDbContext>().WithParameter("options", context.Options);
 
@@ -25,8 +26,8 @@ namespace WellData.Core.Services.Tests
                     .Where(t => t.CustomAttributes.All(s => !s.AttributeType.Name.Contains("ExcludeFromScan")))
                     .AsImplementedInterfaces();
 
-            
-           
+            builder.RegisterAssemblyTypes(typeof(DbContextFixture).GetTypeInfo().Assembly);
+
             //register strategy pattern
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(IWellDataImportStrategy)))
                   .Where(t => typeof(IWellDataImportStrategy).IsAssignableFrom(t))
