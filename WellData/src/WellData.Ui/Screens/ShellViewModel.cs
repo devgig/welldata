@@ -41,7 +41,7 @@ namespace WellData.Ui.Screens
         {
             if (well == null) return;
 
-            using (SetIsBusyWhileExecuting())
+            using (SetIsBusy())
             {
                 //checks for any dirty models and saves those before reloading 
                 var dirty = TankItems.Where(x => x.IsDirty()).ToArray();
@@ -60,7 +60,7 @@ namespace WellData.Ui.Screens
         private async Task LoadWells()
         {
             Execute.OnUIThread(() => WellItems.Clear());
-            using (SetIsBusyWhileExecuting())
+            using (SetIsBusy())
             {
                 //dirty data checking is not needed for this exercise but would be need if data was going to be saved.
                 var wells = await Task.Run(() => _wellProvider.GetAll());
@@ -105,21 +105,24 @@ namespace WellData.Ui.Screens
             };
 
             var uploadFile = openFileDialog.ShowDialog().GetValueOrDefault() ? openFileDialog.FileName : string.Empty;
-            if(uploadFile.IsNullOrEmpty())
+            if (uploadFile.IsNullOrEmpty())
             {
                 await Task.Factory.StartNew(() => MessageQueue.Enqueue("No file selected."));
             }
             else
             {
-                using (SetIsBusyWhileExecuting())
+                using (SetIsLoading())
                 {
-                    //not doing anything with the return for now.  Might add something later
-                    var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
-                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{results} record(s) loaded."));
-                    await LoadWells();
+                    using (SetIsBusy())
+                    {
+                        //not doing anything with the return for now.  Might add something later
+                        var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
+                        await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{results} record(s) loaded."));
+                        await LoadWells();
+                    }
                 }
             }
-            
+
 
         }
 

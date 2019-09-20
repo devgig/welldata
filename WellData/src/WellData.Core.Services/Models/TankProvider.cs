@@ -22,6 +22,11 @@ namespace WellData.Core.Services.Models
             _wellDbContext = wellDbContext;
         }
 
+        /// <summary>
+        /// Returns tanks by well id
+        /// </summary>
+        /// <param name="wellId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<TankModel>> GetByWellId(string wellId)
         {
             //mocking async calls
@@ -33,6 +38,11 @@ namespace WellData.Core.Services.Models
             return await Task.FromResult(tanks.Select(x => ToModel(x)).ToArray());
         }
 
+        /// <summary>
+        /// Save tanks
+        /// </summary>
+        /// <param name="tanks">Number saved</param>
+        /// <returns></returns>
         public async Task<int> Save(IEnumerable<TankModel> tanks)
         {
             var ids = tanks.Select(x => x.Id);

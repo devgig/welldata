@@ -18,6 +18,11 @@ namespace WellData.Core.Services.Models
         {
             _wellDbContext = wellDbContext;
         }
+
+        /// <summary>
+        /// Returns all Well data
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<WellModel>> GetAll()
         {
             //mocking async call

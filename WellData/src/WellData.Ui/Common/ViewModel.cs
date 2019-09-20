@@ -38,12 +38,31 @@ namespace WellData.Ui.Common
             }
         }
 
-        public IDisposable SetIsBusyWhileExecuting()
+        public IDisposable SetIsBusy()
         {
             Execute.OnUIThreadAsync(() => { IsBusy = true; });
             return new DisposableActionInvoker(() =>
             {
                 Execute.OnUIThreadAsync(() => { IsBusy = false; });
+            });
+        }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get => isLoading; set
+            {
+                isLoading = value;
+                NotifyOfPropertyChange(() => IsLoading);
+            }
+        }
+
+        public IDisposable SetIsLoading()
+        {
+            Execute.OnUIThreadAsync(() => { IsLoading = true; });
+            return new DisposableActionInvoker(() =>
+            {
+                Execute.OnUIThreadAsync(() => { IsLoading = false; });
             });
         }
 
