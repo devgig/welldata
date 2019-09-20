@@ -13,7 +13,7 @@
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+
         </Grid.RowDefinitions>
         <!-- Row 0 -->
         <Grid VerticalAlignment="Top">
@@ -41,74 +41,80 @@
         <!--Row 2 -->
         <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding WellGridRegionHeight, Mode=TwoWay}"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="{Binding TankGridRegionHeight, Mode=TwoWay}"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+            <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" 
+                <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" 
                       
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding WellItems}" SelectedItem="{Binding SelectedWell}" >
-                <DataGrid.Columns>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Owner}"
+                    <DataGrid.Columns>
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Owner}"
                                                                Header="Owner"
                                                                MaxLength="100"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
                                                                Header="API"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Longitude}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Longitude}"
                                                                Header="Long"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Latitude}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Latitude}"
                                                                Header="Lat"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Property}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Property}"
                                                                Header="Property"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding LeaseOrWellName}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding LeaseOrWellName}"
                                                                Header="Well Name"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-            <GridSplitter Grid.Row="1"  BorderThickness="1,0,1,0"
+                <GridSplitter Grid.Row="1"  BorderThickness="1,0,1,0"
                         Style="{StaticResource HorizontalGridSplitterStyle}" />
 
-            <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" 
+                <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" 
                   EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TankItems}" >
-                <DataGrid.Columns>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
+                    <DataGrid.Columns>
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
                                                                Header="Tank MID"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
                                                                Header="Tank Name"
                                                                MaxLength="100"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Number}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Number}"
                                                                Header="Tank Nbr"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding Size}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding Size}"
                                                                Header="Tank Size"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding BbblsPerInch}"
+                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding BbblsPerInch}"
                                                                Header="BBLS per inch"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
                                                                />
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <materialDesign:Snackbar HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
         </Grid>
-        <!--Row 3-->
-        <materialDesign:Snackbar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
+
     </Grid>
 </Window>

@@ -3,6 +3,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using WellData.Core.Extensions;
 using WellData.Core.Services.Data;
 using WellData.Core.Services.Models;
 using WellData.Ui.Common;
@@ -47,7 +48,7 @@ namespace WellData.Ui.Screens
                 if (dirty.Any())
                 {
                     var tanks = await Task.Run(() => _tankProvider.Save(dirty));
-                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{tanks} records updated."));
+                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{tanks} record(s) updated."));
                 }
 
                 TankItems.Clear();
@@ -104,7 +105,7 @@ namespace WellData.Ui.Screens
             };
 
             var uploadFile = openFileDialog.ShowDialog().GetValueOrDefault() ? openFileDialog.FileName : string.Empty;
-            if(uploadFile == null)
+            if(uploadFile.IsNullOrEmpty())
             {
                 await Task.Factory.StartNew(() => MessageQueue.Enqueue("No file selected."));
             }
@@ -114,7 +115,7 @@ namespace WellData.Ui.Screens
                 {
                     //not doing anything with the return for now.  Might add something later
                     var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
-                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{results} records loaded."));
+                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{results} record(s) loaded."));
                     await LoadWells();
                 }
             }
