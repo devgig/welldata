@@ -13,7 +13,9 @@
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <!-- Row 0 -->
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -34,7 +36,9 @@
                                                           />
             </StackPanel>
         </Grid>
+        <!-- Row 1-->
         <ProgressBar Grid.Row="1" IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource booleanToVisibleConverter}, ConverterParameter=COLLAPSED}" />
+        <!--Row 2 -->
         <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding WellGridRegionHeight, Mode=TwoWay}"></RowDefinition>
@@ -104,5 +108,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
+        <!--Row 3-->
+        <materialDesign:Snackbar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
     </Grid>
 </Window>

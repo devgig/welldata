@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WellData.Core.Services.Data;
@@ -27,6 +29,7 @@ namespace WellData.Ui.Screens
             _tankProvider = tankProvider;
             WellItems = new BindableCollection<WellModel>();
             TankItems = new BindableCollection<TankModel>();
+            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
             _propertyObserver = new PropertyObserver<ShellViewModel>(this);
 
             _ = _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell).ConfigureAwait(false));
@@ -36,14 +39,17 @@ namespace WellData.Ui.Screens
         private async Task LoadTanks(WellModel well)
         {
             if (well == null) return;
-            
+
             using (SetIsBusyWhileExecuting())
             {
                 //checks for any dirty models and saves those before reloading 
                 var dirty = TankItems.Where(x => x.IsDirty()).ToArray();
-                if(dirty.Any())
-                    await Task.Run(() => _tankProvider.Save(dirty));
-                
+                if (dirty.Any())
+                {
+                    var tanks = await Task.Run(() => _tankProvider.Save(dirty));
+                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{tanks} records updated."));
+                }
+
                 TankItems.Clear();
                 var results = await Task.Run(() => _tankProvider.GetByWellId(well.Id));
                 await Execute.OnUIThreadAsync(() => TankItems.AddRange(results));
@@ -66,12 +72,23 @@ namespace WellData.Ui.Screens
 
         private WellModel selectedWell;
 
+
         public WellModel SelectedWell
         {
             get => selectedWell; set
             {
                 selectedWell = value;
                 NotifyOfPropertyChange(() => SelectedWell);
+            }
+        }
+
+        private SnackbarMessageQueue messageQueue;
+        public SnackbarMessageQueue MessageQueue
+        {
+            get => messageQueue; set
+            {
+                messageQueue = value;
+                NotifyOfPropertyChange(() => MessageQueue);
             }
         }
 
@@ -87,12 +104,21 @@ namespace WellData.Ui.Screens
             };
 
             var uploadFile = openFileDialog.ShowDialog().GetValueOrDefault() ? openFileDialog.FileName : string.Empty;
-            using (SetIsBusyWhileExecuting())
+            if(uploadFile == null)
             {
-                //not doing anything with the return for now.  Might add something later
-                var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
-                await LoadWells();
+                await Task.Factory.StartNew(() => MessageQueue.Enqueue("No file selected."));
             }
+            else
+            {
+                using (SetIsBusyWhileExecuting())
+                {
+                    //not doing anything with the return for now.  Might add something later
+                    var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
+                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{results} records loaded."));
+                    await LoadWells();
+                }
+            }
+            
 
         }
 
