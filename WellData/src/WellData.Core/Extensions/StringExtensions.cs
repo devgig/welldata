@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace WellData.Core.Data.Extensions
+namespace WellData.Core.Extensions
 {
     public static class StringExtensions
     {

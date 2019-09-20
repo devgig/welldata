@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics.Contracts;
-using WellData.Core.Data.Extensions;
+using WellData.Core.Extensions;
 
 namespace WellData.Ui.Common
 {

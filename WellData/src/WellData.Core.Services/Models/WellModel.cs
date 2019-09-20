@@ -8,10 +8,6 @@
         private int property;
         private string leaseOrWellName;
 
-        public WellModel() : base(typeof(WellModel))
-        {
-        }
-
         public string Owner
         {
             get => owner; set

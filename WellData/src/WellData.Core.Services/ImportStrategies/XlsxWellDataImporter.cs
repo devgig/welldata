@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using WellData.Core.Data.Entities;
-using WellData.Core.Data.Extensions;
+using WellData.Core.Extensions;
 using WellData.Core.Services.Data;
 
 namespace WellData.Core.Services.ImportStrategies

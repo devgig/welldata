@@ -39,6 +39,7 @@ namespace WellData.Ui.Screens
             
             using (SetIsBusyWhileExecuting())
             {
+                //checks for any dirty models and saves those before reloading 
                 var dirty = TankItems.Where(x => x.IsDirty()).ToArray();
                 if(dirty.Any())
                     await Task.Run(() => _tankProvider.Save(dirty));
@@ -54,6 +55,7 @@ namespace WellData.Ui.Screens
             WellItems.Clear();
             using (SetIsBusyWhileExecuting())
             {
+                //dirty data checking is not needed for this exercise but would be need if data was going to be saved.
                 var wells = await Task.Run(() => _wellProvider.GetAll());
                 await Execute.OnUIThreadAsync(() => WellItems.AddRange(wells.ToArray()));
             }

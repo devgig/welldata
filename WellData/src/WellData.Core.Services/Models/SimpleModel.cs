@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using WellData.Core.Data.Extensions;
+using WellData.Core.Extensions;
 
 namespace WellData.Core.Services.Models
 {
@@ -15,10 +14,10 @@ namespace WellData.Core.Services.Models
         private readonly object _instance;
         private PropInfo[] _propInfos;
         
-        protected SimpleModel(Type type)
+        protected SimpleModel()
         {
             _instance = this;
-            _type = type;
+            _type = this.GetType();
             EnsureInitialized();
         }
 

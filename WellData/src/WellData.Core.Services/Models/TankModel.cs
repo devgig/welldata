@@ -11,10 +11,6 @@
         private string rNG;
         private string county;
 
-        public TankModel() : base(typeof(TankModel))
-        {
-        }
-
         public int Id { get; set; }
 
         public string Name

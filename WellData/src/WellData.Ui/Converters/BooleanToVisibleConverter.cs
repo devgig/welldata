@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Data;
-using WellData.Core.Data.Extensions;
+using WellData.Core.Extensions;
 
 namespace WellData.Ui.Converters
 {

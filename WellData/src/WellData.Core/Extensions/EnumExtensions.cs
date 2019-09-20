@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace WellData.Core.Data.Extensions
+namespace WellData.Core.Extensions
 {
     public static class EnumExtensions
     {
