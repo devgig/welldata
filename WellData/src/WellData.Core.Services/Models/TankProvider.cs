@@ -75,22 +75,23 @@ namespace WellData.Core.Services.Models
 
         private TankModel ToModel(Tank tank)
         {
-            var model = new TankModel
+            var model = new TankModel();
+            using(model.SuppressNotifyPropertyChange())
             {
-                Id = tank.Id,
-                BbblsPerInch = tank.BbblsPerInch,
-                County = tank.County,
-                Name = tank.Name,
-                Number = tank.Number,
-                RNG = tank.RNG,
-                SEC = tank.SEC,
-                Size = tank.Size,
-                TWP = tank.TWP,
-                WellId = tank.WellId
-            };
-            model.Clean();
-            return model;
-
+                model.Id = tank.Id;
+                model.BbblsPerInch = tank.BbblsPerInch;
+                model.County = tank.County;
+                model.Name = tank.Name;
+                model.Number = tank.Number;
+                model.RNG = tank.RNG;
+                model.SEC = tank.SEC;
+                model.Size = tank.Size;
+                model.TWP = tank.TWP;
+                model.WellId = tank.WellId;
+                //sets dirty data tracking
+                model.Clean();
+                return model;
+            }
         }
     }
 }

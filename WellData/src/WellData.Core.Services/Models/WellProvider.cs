@@ -31,17 +31,19 @@ namespace WellData.Core.Services.Models
 
         private WellModel ToModel(Well well)
         {
-            var model = new WellModel
+            var model = new WellModel();
+            using (model.SuppressNotifyPropertyChange())
             {
-                Id = well.Id,
-                Latitude = well.Latitude,
-                Longitude = well.Longitude,
-                LeaseOrWellName = well.LeaseOrWellName,
-                Owner = well.Owner,
-                Property = well.Property,
+                model.Id = well.Id;
+                model.Latitude = well.Latitude;
+                model.Longitude = well.Longitude;
+                model.LeaseOrWellName = well.LeaseOrWellName;
+                model.Owner = well.Owner;
+                model.Property = well.Property;
+               return model;
             };
-            model.Clean();
-            return model;
+
+
         }
     }
 }

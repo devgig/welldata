@@ -33,7 +33,7 @@ namespace WellData.Ui.Screens
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
             _propertyObserver = new PropertyObserver<ShellViewModel>(this);
 
-            _ = _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell).ConfigureAwait(false));
+            _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell).ConfigureAwait(false));
 
         }
 
@@ -48,10 +48,10 @@ namespace WellData.Ui.Screens
                 if (dirty.Any())
                 {
                     var tanks = await Task.Run(() => _tankProvider.Save(dirty));
-                    await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{tanks} record(s) updated."));
+                    await Task.Run(() => MessageQueue.Enqueue($"{tanks} record(s) updated."));
                 }
 
-                Execute.OnUIThread(() => TankItems.Clear());
+                TankItems.Clear();
                 var results = await Task.Run(() => _tankProvider.GetByWellId(well.Id));
                 await Execute.OnUIThreadAsync(() => TankItems.AddRange(results));
             }
@@ -59,10 +59,10 @@ namespace WellData.Ui.Screens
 
         private async Task LoadWells()
         {
-            Execute.OnUIThread(() => WellItems.Clear());
+            WellItems.Clear();
             using (SetIsBusy())
             {
-                //dirty data checking is not needed for this exercise but would be need if data was going to be saved.
+                //dirty data checking is not needed for wells in this exercise but would be need if data was going to be saved.
                 var wells = await Task.Run(() => _wellProvider.GetAll());
                 await Execute.OnUIThreadAsync(() => WellItems.AddRange(wells.ToArray()));
             }
@@ -93,6 +93,8 @@ namespace WellData.Ui.Screens
             }
         }
 
+        public bool CanImportFileCommand { get { return !IsLoading; } }
+
 
         public async Task ImportFileCommand()
         {
@@ -107,22 +109,28 @@ namespace WellData.Ui.Screens
             var uploadFile = openFileDialog.ShowDialog().GetValueOrDefault() ? openFileDialog.FileName : string.Empty;
             if (uploadFile.IsNullOrEmpty())
             {
-                await Task.Factory.StartNew(() => MessageQueue.Enqueue("No file selected."));
+                await Task.Run(() => MessageQueue.Enqueue("No file selected."));
             }
             else
             {
                 using (SetIsLoading())
                 {
+                    //disable import file while loading
+                    NotifyOfPropertyChange(() => CanImportFileCommand);
+
                     using (SetIsBusy())
                     {
                         //not doing anything with the return for now.  Might add something later
                         var results = await Task.Run(() => _wellDataImporter.Upload(uploadFile));
-                        await Task.Factory.StartNew(() => MessageQueue.Enqueue($"{results} record(s) loaded."));
+                        await Task.Run(() => MessageQueue.Enqueue($"{results} record(s) loaded."));
                         await LoadWells();
                     }
                 }
-            }
 
+                //enable import file afer loading
+                await Execute.OnUIThreadAsync(() => NotifyOfPropertyChange(() => CanImportFileCommand));
+
+            }
 
         }
 

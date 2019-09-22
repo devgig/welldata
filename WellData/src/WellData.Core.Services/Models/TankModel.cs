@@ -1,6 +1,6 @@
 ﻿namespace WellData.Core.Services.Models
 {
-    public class TankModel : SimpleModel
+    public class TankModel : AutoTrackModel
     {
         private string name;
         private int number;

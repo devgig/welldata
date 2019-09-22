@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.Contracts;
 using WellData.Core.Extensions;
 
-namespace WellData.Ui.Common
+namespace WellData.Core.Common
 {
     public class DisposableActionInvoker : IDisposable
     {

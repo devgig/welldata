@@ -1,14 +1,16 @@
 ﻿using Caliburn.Micro;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using WellData.Core.Common;
 
 namespace WellData.Ui.Common
 {
     public abstract class ViewModel : Screen
     {
 
-        private string[] propertyNames;
+        private string[] _propertyNames;
 
         public virtual void TriggerPropertyChangedWithCanExecute<TProperty>(Expression<Func<TProperty>> property)
         {
@@ -20,46 +22,46 @@ namespace WellData.Ui.Common
         public void TriggerCanExecuteCommands()
         {
             //bumps the Can[propertyname] for Caliburn Micro
-            propertyNames = propertyNames ?? GetType().GetProperties()
+            _propertyNames = _propertyNames ?? GetType().GetProperties()
               .Where(property => property.Name.StartsWith("Can"))
               .Select(x => x.Name).ToArray();
 
-            foreach (var name in propertyNames)
+            foreach (var name in _propertyNames)
                 NotifyOfPropertyChange(name);
         }
 
-        private bool isBusy;
+        private bool _isBusy;
         public bool IsBusy
         {
-            get => isBusy; set
+            get => _isBusy; set
             {
-                isBusy = value;
+                _isBusy = value;
                 NotifyOfPropertyChange(() => IsBusy);
             }
         }
 
         public IDisposable SetIsBusy()
         {
-            Execute.OnUIThreadAsync(() => { IsBusy = true; });
+            IsBusy = true;
             return new DisposableActionInvoker(() =>
             {
                 Execute.OnUIThreadAsync(() => { IsBusy = false; });
             });
         }
 
-        private bool isLoading;
+        private bool _isLoading;
         public bool IsLoading
         {
-            get => isLoading; set
+            get => _isLoading; set
             {
-                isLoading = value;
+                _isLoading = value;
                 NotifyOfPropertyChange(() => IsLoading);
             }
         }
 
         public IDisposable SetIsLoading()
         {
-            Execute.OnUIThreadAsync(() => { IsLoading = true; });
+            IsLoading = true;
             return new DisposableActionInvoker(() =>
             {
                 Execute.OnUIThreadAsync(() => { IsLoading = false; });

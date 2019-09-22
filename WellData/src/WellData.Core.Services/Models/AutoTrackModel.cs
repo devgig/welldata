@@ -1,34 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using WellData.Core.Extensions;
 
 namespace WellData.Core.Services.Models
 {
-    public abstract class SimpleModel : INotifyPropertyChanged
+    public abstract class AutoTrackModel : Model
     {
         private readonly Type _type;
         private readonly object _instance;
         private PropInfo[] _propInfos;
-        
-        protected SimpleModel()
+        private readonly Dictionary<string, object> _trackedState = new Dictionary<string, object>();
+
+        protected AutoTrackModel()
         {
             _instance = this;
             _type = this.GetType();
             EnsureInitialized();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private readonly Dictionary<string, object> _trackedState = new Dictionary<string, object>();
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
         
         /// <summary>
         /// This captures the properties on the model with type defaults
@@ -60,7 +51,7 @@ namespace WellData.Core.Services.Models
         }
 
         /// <summary>
-        /// Clean needs to be ran after the Simple Model is populated with data to set the initial state.
+        /// Clean needs to be ran after the AutoTrack Model is populated with data to set the initial state.
         /// </summary>
         public void Clean()
         {
@@ -104,11 +95,10 @@ namespace WellData.Core.Services.Models
             return false;
         }
 
-    }
-
-    public class PropInfo
-    {
-        public PropertyInfo PropertyInfo { get; set; }
+        class PropInfo
+        {
+            public PropertyInfo PropertyInfo { get; set; }
+        }
     }
 
 }

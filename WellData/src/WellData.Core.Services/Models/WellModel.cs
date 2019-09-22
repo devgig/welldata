@@ -1,6 +1,7 @@
 ﻿namespace WellData.Core.Services.Models
 {
-    public class WellModel : SimpleModel
+    
+    public class WellModel : Model
     {
         private string owner;
         private decimal longitude;
