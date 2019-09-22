@@ -30,7 +30,11 @@ namespace WellData.Ui.Screens
             _tankProvider = tankProvider;
             WellItems = new BindableCollection<WellModel>();
             TankItems = new BindableCollection<TankModel>();
-            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
+            MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2))
+            {
+                IgnoreDuplicate = true
+            };
+
             _propertyObserver = new PropertyObserver<ShellViewModel>(this);
 
             _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell).ConfigureAwait(false));
