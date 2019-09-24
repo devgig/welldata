@@ -161,9 +161,9 @@ namespace WellData.Ui.Screens
             });
         }
 
-        public void Notify()
+        public void Notify(string message)
         {
-            Task.Run(() => MessageQueue.Enqueue("Notify Recieved!"));
+            Task.Run(() => MessageQueue.Enqueue($"Notify Recieved:  {message}"));
 
         }
     }

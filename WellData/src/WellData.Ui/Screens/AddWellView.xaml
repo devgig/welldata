@@ -1,13 +1,27 @@
 ﻿<Window x:Class="WellData.Ui.Screens.AddWellView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cal="http://www.caliburnproject.org"
-        mc:Ignorable="d"
-        Title="AddWellView" Height="400" Width="400">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="clr-namespace:WellData.Ui.Behaviours"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    Title="AddWellView"
+    Width="400"
+    Height="400">
     <StackPanel>
-        <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="20">Under Construction...</Label>
-        <Button Width="75" Margin="10" cal:Message.Attach="NotifyCommand">Notify</Button>
+        <Label
+            HorizontalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold">
+            Under Construction...
+        </Label>
+        <Button
+            Width="75"
+            Margin="10"
+            cal:Message.Attach="NotifyCommand">
+            <i:Interaction.Behaviors>
+                <behaviors:DisableDoubleClickBehavior />
+            </i:Interaction.Behaviors>
+            Notify
+        </Button>
     </StackPanel>
 </Window>

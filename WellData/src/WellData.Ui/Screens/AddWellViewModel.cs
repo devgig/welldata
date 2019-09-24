@@ -1,4 +1,6 @@
-﻿using WellData.Core.Services.Models;
+﻿using Caliburn.Micro;
+using System;
+using WellData.Core.Services.Models;
 using WellData.Ui.Common;
 
 namespace WellData.Ui.Screens
@@ -15,7 +17,7 @@ namespace WellData.Ui.Screens
             _notify = notify;
         }
 
-       
+
         protected override void OnDeactivate(bool close)
         {
             base.OnDeactivate(close);
@@ -26,9 +28,20 @@ namespace WellData.Ui.Screens
             base.OnActivate();
         }
 
+        public bool CanNotifyCommand { get { return !IsBusy; } }
+
         public void NotifyCommand()
         {
-            _notify.Notify();
+            using (SetIsBusy())
+            {
+                NotifyOfPropertyChange(() => CanNotifyCommand);
+                _notify.Notify(DateTime.Now.Ticks.ToString());
+
+            }
+
+            Execute.OnUIThreadAsync(() => NotifyOfPropertyChange(() => CanNotifyCommand));
+
         }
+
     }
 }
