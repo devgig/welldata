@@ -6,8 +6,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using WellData.Bootstrap.Assemblies;
+using WellData.Core.Common;
 using WellData.Core.Data;
 using WellData.Core.Services.ImportStrategies;
+using WellData.Ui.Screens;
 using IContainer = Autofac.IContainer;
 
 namespace WellData
@@ -36,10 +38,20 @@ namespace WellData
             //  register the single window manager for this container
             builder.RegisterType<WindowManager>().As<IWindowManager>().SingleInstance();
 
+            //register generic factory
+            builder
+                .RegisterGeneric(typeof(Factory<>))
+                .As(typeof(IFactory<>))
+                .InstancePerDependency();
+
             //register strategy pattern
             builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(IWellDataImportStrategy)))
                   .Where(t => typeof(IWellDataImportStrategy).IsAssignableFrom(t))
                   .AsSelf();
+
+            //register other interfaces
+
+
 
             builder.Register<Func<string, IWellDataImportStrategy>>(c =>
             {

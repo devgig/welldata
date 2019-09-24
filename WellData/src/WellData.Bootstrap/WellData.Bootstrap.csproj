@@ -55,6 +55,10 @@
       <Project>{9DB72530-03A5-4409-9079-EEF0E71E6AC6}</Project>
       <Name>WellData.Core.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WellData.Core\WellData.Core.csproj">
+      <Project>{d79177df-e3c4-4b53-9b6f-2a5b32195af7}</Project>
+      <Name>WellData.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WellData.Ui\WellData.Ui.csproj">
       <Project>{7D21BFDA-DAD7-4FDD-A636-0055CEE06010}</Project>
       <Name>WellData.Ui</Name>

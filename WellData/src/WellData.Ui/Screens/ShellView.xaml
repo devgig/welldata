@@ -39,6 +39,11 @@
                                                           ToolTip="Import File"
                                                           Content="Import File"
                                                           />
+                <Common:FontButton cal:Message.Attach="AddWellCommand" 
+                                                          Icon="Add"
+                                                          ToolTip="Add Well"
+                                                          Content="Add Well"
+                                                          />
             </StackPanel>
         </Grid>
         <!--Row 2 -->

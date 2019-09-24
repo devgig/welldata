@@ -80,6 +80,8 @@
     <Compile Include="Common\ViewModel.cs" />
     <Compile Include="Controls\FontButton.cs" />
     <Compile Include="Converters\BooleanToVisibleConverter.cs" />
+    <Compile Include="Screens\AddWellViewModel.cs" />
+    <Compile Include="Screens\IRecieveNotifyOnAdd.cs" />
     <Compile Include="Screens\ShellViewModel.cs" />
     <Compile Include="WellDataUiRegistry.cs" />
   </ItemGroup>
@@ -126,6 +128,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Converters\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\AddWellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,6 +3,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using WellData.Core.Common;
 using WellData.Core.Extensions;
 using WellData.Core.Services.Data;
 using WellData.Core.Services.Models;
@@ -10,24 +11,30 @@ using WellData.Ui.Common;
 
 namespace WellData.Ui.Screens
 {
-    public class ShellViewModel : ViewModel
+    public class ShellViewModel : ViewModel, IRecieveNotifyOnAdd
     {
         private readonly IMessageBoxManager _messageBoxManager;
         private readonly IWellDataImporter _wellDataImporter;
         private readonly IWellProvider _wellProvider;
         private readonly ITankProvider _tankProvider;
+        private readonly IWindowManager _windowManager;
+        private readonly IFactory<AddWellViewModel> _wellViewModelFactory;
         private readonly PropertyObserver<ShellViewModel> _propertyObserver;
 
         public ShellViewModel(
             IMessageBoxManager messageBoxManager,
             IWellDataImporter wellDataImporter,
             IWellProvider wellProvider,
-            ITankProvider tankProvider)
+            ITankProvider tankProvider,
+            IWindowManager windowManager,
+            IFactory<AddWellViewModel> wellViewModelFactory)
         {
             _messageBoxManager = messageBoxManager;
             _wellDataImporter = wellDataImporter;
             _wellProvider = wellProvider;
             _tankProvider = tankProvider;
+            _windowManager = windowManager;
+            _wellViewModelFactory = wellViewModelFactory;
             WellItems = new BindableCollection<WellModel>();
             TankItems = new BindableCollection<TankModel>();
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2))
@@ -97,6 +104,13 @@ namespace WellData.Ui.Screens
             }
         }
 
+        public async Task AddWellCommand()
+        {
+            _windowManager.ShowDialog(_wellViewModelFactory.Create<IRecieveNotifyOnAdd>(this));
+        }
+
+        public bool CanAddWellCommand { get { return !IsLoading; } }
+
         public bool CanImportFileCommand { get { return !IsLoading; } }
 
 
@@ -120,7 +134,7 @@ namespace WellData.Ui.Screens
                 using (SetIsLoading())
                 {
                     //disable import file while loading
-                    NotifyOfPropertyChange(() => CanImportFileCommand);
+                    BumpLoading();
 
                     using (SetIsBusy())
                     {
@@ -132,11 +146,25 @@ namespace WellData.Ui.Screens
                 }
 
                 //enable import file afer loading
-                await Execute.OnUIThreadAsync(() => NotifyOfPropertyChange(() => CanImportFileCommand));
+                BumpLoading(); 
 
             }
 
         }
 
+        private void BumpLoading()
+        {
+            Execute.OnUIThreadAsync(() =>
+            {
+                NotifyOfPropertyChange(() => CanImportFileCommand);
+                NotifyOfPropertyChange(() => CanAddWellCommand);
+            });
+        }
+
+        public void Notify()
+        {
+            Task.Run(() => MessageQueue.Enqueue("Notify Recieved!"));
+
+        }
     }
 }
