@@ -16,6 +16,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Well Data Viewer")]
 [assembly: AssemblyVersionAttribute("2.0.0.0")]
 [assembly: AssemblyFileVersionAttribute("2.0.0.0")]
-[assembly: AssemblyCopyrightAttribute("Copyright (c) 1998 - 2019")]
+[assembly: AssemblyCopyrightAttribute("Copyright (c) 2008 - 2019")]
 [assembly: AssemblyCompany("Qv21 Technologies")]
-[assembly: AssemblyMetadata("SquirrelAwareVersion", "1")]

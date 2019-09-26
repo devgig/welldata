@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace WellData.Core.Extensions
 {
@@ -6,7 +7,7 @@ namespace WellData.Core.Extensions
     {
         public static int ToNumber(this string value)
         {
-            return int.TryParse(value, out int n) ? n : 0;
+            return Int32.TryParse(value, out int n) ? n : 0;
         }
 
         public static double ToDouble(this string value)

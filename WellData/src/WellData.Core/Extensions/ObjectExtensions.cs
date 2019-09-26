@@ -11,7 +11,7 @@ namespace WellData.Core.Extensions
      
         public static int ToNumber(this object value)
         {
-            return int.TryParse(value?.ToString(), out int n) ? n : 0;
+            return Int32.TryParse(value?.ToString(), out int n) ? n : 0;
         }
 
         public static double ToDouble(this object value)

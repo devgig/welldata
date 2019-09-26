@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>WellData</id>
+    <version>2.0.0</version>
+    <authors>Qv21 Technologies</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Well Data Viewer</description>
+  </metadata>
+  <files>
+    <file src="..\..\build\Release\WellData\*.*" target="lib\net45\" exclude="*.pdb;*.nupkg;*.vshost.*" />
+  </files>
+</package>
