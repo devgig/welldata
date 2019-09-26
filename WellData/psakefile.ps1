@@ -101,7 +101,8 @@ Task CompileRelease -Depends Clean, CommonAssemblyInfoAndDbVersion {
 
     & "$nuget" pack .\src\WellData\WellData.nuspec
     Write-Host "Running squirrel releasify" -ForegroundColor Green
-    & "$squirrel" --releasify ".\WellData.$nugetVersion.nupkg" --framework-version=net472 --no-msi """/a /f .\tools\DigitalCertificate\certificat.pfx /p AI007 /fd sha256 /tr http://timestamp.digicert.com /td sha256"""
+#    & "$squirrel" --releasify ".\WellData.$nugetVersion.nupkg" --framework-version=net45 --no-msi """/a /f .\tools\DigitalCertificate\certificat.pfx /p AI007 /fd sha256 /tr http://timestamp.digicert.com /td sha256"""
+    & "$squirrel" --releasify ".\WellData.$nugetVersion.nupkg" --framework-version=net45 --no-msi 
     Write-Host "Waiting for squirrel releasify to complete" -ForegroundColor Green
     Wait-Process -Name "squirrel"
     Write-Host "squirrel releasify completed" -ForegroundColor Green
@@ -109,6 +110,9 @@ Task CompileRelease -Depends Clean, CommonAssemblyInfoAndDbVersion {
     Write-Host "Copying files to drop location" -ForegroundColor Green
     Copy-Item .\Releases\* $svaPublishDir
     Write-Host "Publishing files to Production channel" -ForegroundColor Green
+    Remove-Item .\Releases -Recurse -Force | out-null
+    Remove-Item .\build -Recurse -Force | out-null
+    Write-Host "Folder cleanup complete" -ForegroundColor Green
     # if($is_release_build) {
     #     Write-Host "Publishing files to Test channel" -ForegroundColor Green
     #     Copy-Item .\Releases\* \\localhost\wwwroot\WellData\WellDataTest
