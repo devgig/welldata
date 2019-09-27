@@ -49,6 +49,7 @@ namespace WellData.Ui.AutoUpdate
 
         public async void CheckAndUpdate(ViewModel viewModel)
         {
+
             try
             {
                 using (var mgr = new UpdateManager(ConfigurationManager.AppSettings["updateUrl"]))
