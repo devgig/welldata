@@ -1,133 +1,177 @@
 ﻿<Window x:Class="WellData.Ui.Screens.ShellView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cal="http://www.caliburnproject.org"
-        xmlns:Common="clr-namespace:WellData.Ui.Controls"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Width="800" Height="600" Icon="logo.ico"
-        Title="Qv21 Technologies" WindowState="Normal"
-        xmlns:PInvokeHelpers2="clr-namespace:WellData.Ui.PInvokeHelpers"
-        PInvokeHelpers2:WindowSettings.Save="True"
-        >
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Common="clr-namespace:WellData.Ui.Controls"
+    xmlns:PInvokeHelpers2="clr-namespace:WellData.Ui.PInvokeHelpers"
+    xmlns:cal="http://www.caliburnproject.org"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Title="Qv21 Technologies"
+    Width="800"
+    Height="600"
+    PInvokeHelpers2:WindowSettings.Save="True"
+    Icon="logo.ico"
+    WindowState="Normal">
     <Grid Background="{StaticResource MainBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
 
         </Grid.RowDefinitions>
-        <!-- Row 0 -->
+        <!--  Row 0  -->
         <Grid VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Margin="0,3,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
-                <Image Margin="8,0"  VerticalAlignment="Center" Height="25" Width="25" Source="{StaticResource Qv21WhiteLog}"  ></Image>
-                <TextBlock  Margin="0,5,0,0" HorizontalAlignment="Center" TextAlignment="Center" 
-                                    TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Foreground="White"
-                                    FontFamily="Calibri" FontSize="20" FontWeight="DemiBold"
-                                    Text="Qv21 Well Data Viewer" />
+            <StackPanel
+                Margin="0,3,0,0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <Image
+                    Width="25"
+                    Height="25"
+                    Margin="8,0"
+                    VerticalAlignment="Center"
+                    Source="{StaticResource Qv21WhiteLog}" />
+                <TextBlock
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Calibri"
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    Foreground="White"
+                    Text="Qv21 Well Data Viewer"
+                    TextAlignment="Center"
+                    TextTrimming="CharacterEllipsis" />
 
             </StackPanel>
         </Grid>
-        <!-- Row 1-->
-        <Grid Grid.Row="1" Background="Black" VerticalAlignment="Top">
-            <StackPanel  HorizontalAlignment="Left" Orientation="Horizontal" >
-                <Common:FontButton cal:Message.Attach="ImportFileCommand" 
-                                                          Icon="FileImport"
-                                                          ToolTip="Import File"
-                                                          Content="Import File"
-                                                          />
-                <Common:FontButton cal:Message.Attach="AddWellCommand" 
-                                                          Icon="Add"
-                                                          ToolTip="Add Well"
-                                                          Content="Add Well"
-                                                          />
+        <!--  Row 1  -->
+        <Grid
+            Grid.Row="1"
+            VerticalAlignment="Top"
+            Background="Black">
+            <StackPanel
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <Common:FontButton
+                    cal:Message.Attach="ImportFileCommand"
+                    Content="Import File"
+                    Icon="FileImport"
+                    ToolTip="Import File" />
+                <Common:FontButton
+                    cal:Message.Attach="AddWellCommand"
+                    Content="Add Well"
+                    Icon="Add"
+                    ToolTip="Add Well" />
             </StackPanel>
         </Grid>
-        <!--Row 2 -->
-        <ProgressBar Grid.Row="2" IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource booleanToVisibleConverter}, ConverterParameter=COLLAPSED}" />
-        <!-- Row 3-->
-        <materialDesign:DialogHost Grid.Row="3" IsOpen="{Binding IsLoading}" >
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <!--  Row 2  -->
+        <ProgressBar
+            Grid.Row="2"
+            IsIndeterminate="True"
+            Visibility="{Binding IsBusy, Converter={StaticResource booleanToVisibleConverter}, ConverterParameter=COLLAPSED}" />
+        <!--  Row 3  -->
+        <materialDesign:DialogHost
+            Grid.Row="3"
+            IsOpen="{Binding IsLoading}">
+            <Grid
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="0"  RenderOptions.EdgeMode="Aliased" 
-                      
-                  EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding WellItems}" SelectedItem="{Binding SelectedWell}" >
+                    <DataGrid
+                        Grid.Row="0"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        EnableRowVirtualization="True"
+                        ItemsSource="{Binding WellItems}"
+                        RenderOptions.EdgeMode="Aliased"
+                        SelectedItem="{Binding SelectedWell}">
                         <DataGrid.Columns>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Owner}"
-                                                               Header="Owner"
-                                                               MaxLength="100"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
-                                                               Header="API"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Longitude}"
-                                                               Header="Long"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Latitude}"
-                                                               Header="Lat"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Property}"
-                                                               Header="Property"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding LeaseOrWellName}"
-                                                               Header="Well Name"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Owner}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Owner"
+                                MaxLength="100" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Id}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="API" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Longitude}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Long" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Latitude}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Lat" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Property}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Property" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding LeaseOrWellName}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Well Name" />
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <GridSplitter Grid.Row="1"  BorderThickness="1,0,1,0"
+                    <GridSplitter
+                        Grid.Row="1"
+                        BorderThickness="1,0,1,0"
                         Style="{StaticResource HorizontalGridSplitterStyle}" />
 
-                    <DataGrid Grid.Row="2"  RenderOptions.EdgeMode="Aliased" 
-                  EnableRowVirtualization="True" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding TankItems}" >
+                    <DataGrid
+                        Grid.Row="2"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        EnableRowVirtualization="True"
+                        ItemsSource="{Binding TankItems}"
+                        RenderOptions.EdgeMode="Aliased">
                         <DataGrid.Columns>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Id}"
-                                                               Header="Tank MID"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
-                                                               Header="Tank Name"
-                                                               MaxLength="100"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Number}"
-                                                               Header="Tank Nbr"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Size}"
-                                                               Header="Tank Size"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding BbblsPerInch}"
-                                                               Header="BBLS per inch"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
-                                                               />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Id}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Tank MID" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Name}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Tank Name"
+                                MaxLength="100" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Number}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Tank Nbr" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding Size}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="Tank Size" />
+                            <materialDesign:MaterialDataGridTextColumn
+                                Binding="{Binding BbblsPerInch}"
+                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                Header="BBLS per inch" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
 
-                <materialDesign:Snackbar HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
+                <materialDesign:Snackbar
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    MessageQueue="{Binding MessageQueue, Mode=OneTime}" />
             </Grid>
         </materialDesign:DialogHost>
 

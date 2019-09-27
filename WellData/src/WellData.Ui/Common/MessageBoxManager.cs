@@ -7,13 +7,19 @@ namespace WellData.Ui.Common
     {
         void ShowException(Exception exception);
         void ShowInformation(string info);
+        bool Confirm(string message, string title);
 
     }
     public class MessageBoxManager : IMessageBoxManager
     {
+        public bool Confirm(string message, string title)
+        {
+            return MessageBox.Show(message, title, MessageBoxButton.YesNo) == MessageBoxResult.Yes ? true : false;
+        }
+
         public void ShowException(Exception exception)
         {
-            MessageBox.Show(exception.ToString(), "Error Occurred");
+            MessageBox.Show(exception?.Message, "Error Occurred");
         }
 
         public void ShowInformation(string info)

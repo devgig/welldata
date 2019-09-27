@@ -7,6 +7,7 @@ using WellData.Core.Common;
 using WellData.Core.Extensions;
 using WellData.Core.Services.Data;
 using WellData.Core.Services.Models;
+using WellData.Ui.AutoUpdate;
 using WellData.Ui.Common;
 
 namespace WellData.Ui.Screens
@@ -19,6 +20,7 @@ namespace WellData.Ui.Screens
         private readonly ITankProvider _tankProvider;
         private readonly IWindowManager _windowManager;
         private readonly IFactory<AddWellViewModel> _wellViewModelFactory;
+        private readonly IAutoUpdater _autoUpdater;
         private readonly PropertyObserver<ShellViewModel> _propertyObserver;
 
         public ShellViewModel(
@@ -27,7 +29,8 @@ namespace WellData.Ui.Screens
             IWellProvider wellProvider,
             ITankProvider tankProvider,
             IWindowManager windowManager,
-            IFactory<AddWellViewModel> wellViewModelFactory)
+            IFactory<AddWellViewModel> wellViewModelFactory,
+            IAutoUpdater autoUpdater)
         {
             _messageBoxManager = messageBoxManager;
             _wellDataImporter = wellDataImporter;
@@ -35,6 +38,7 @@ namespace WellData.Ui.Screens
             _tankProvider = tankProvider;
             _windowManager = windowManager;
             _wellViewModelFactory = wellViewModelFactory;
+            _autoUpdater = autoUpdater;
             WellItems = new BindableCollection<WellModel>();
             TankItems = new BindableCollection<TankModel>();
             MessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2))
@@ -46,6 +50,14 @@ namespace WellData.Ui.Screens
 
             _propertyObserver.OnChangeOf(x => x.SelectedWell).Do((vm) => LoadTanks(vm.SelectedWell).ConfigureAwait(false));
 
+        }
+
+        protected override void OnViewLoaded(object view)
+        {
+#if !DEBUG
+           _autoUpdater.CheckAndUpdate(this);
+#endif
+            base.OnViewLoaded(view);
         }
 
         private async Task LoadTanks(WellModel well)
@@ -146,7 +158,7 @@ namespace WellData.Ui.Screens
                 }
 
                 //enable import file afer loading
-                BumpLoading(); 
+                BumpLoading();
 
             }
 

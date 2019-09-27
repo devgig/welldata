@@ -6,6 +6,7 @@ using Autofac;
 using WellData.Ui.Screens;
 using System.Reflection;
 using WellData.Bootstrap.Assemblies;
+using WellData.Ui.AutoUpdate;
 
 namespace WellData
 {
@@ -21,6 +22,7 @@ namespace WellData
         protected override void Configure()
         {
             _container = ConfigureContainer();
+            _container.Resolve<IAutoUpdater>().HandleUpdateEvents();
 
         }
 
